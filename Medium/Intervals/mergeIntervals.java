@@ -1,4 +1,4 @@
-package Easy.Intervals;
+package Medium.Intervals;
 
 import java.util.ArrayList;
 import java.util.List;
