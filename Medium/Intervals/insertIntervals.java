@@ -9,49 +9,64 @@ public class insertIntervals {
         ArrayList<ArrayList<Integer>> arrayList2D = new ArrayList<>();
         ArrayList<Integer> addArray = new ArrayList<>();
         boolean Continue = false;
+        boolean Finished = false;
+
+        if (intervals == null || intervals.length == 0) {
+            int[][] result = new int[1][2];
+            result[0][0] = newInterval[0];
+            result[0][1] = newInterval[1];
+            return result;
+        } else if (newInterval == null || newInterval.length == 0) {
+            return intervals;
+        }
 
         for (int i = 0; i < intervals.length; i++) {
-            // Scenario 1
-            if (newInterval[0] >= intervals[i][0] && newInterval[1] <= intervals[i][1]) {
-                arrayList2D.add(new ArrayList<>(List.of(intervals[i][0], intervals[i][1])));
-            }
-
-            // Scenario 2 and 3
-            if (newInterval[0] >= intervals[i][0] && newInterval[0] <= intervals[i][1]) {
-                frontInterval = intervals[i][0];
-                Continue = true;
-                continue;
-            }
-
-            if (newInterval[1] <= intervals[i][0] && Continue == true) {
-                addArray.add(frontInterval);
-                addArray.add(endInterval);
-                arrayList2D.add(new ArrayList<>(List.copyOf(addArray)));
-            }
-            
-            if (newInterval[1] >= intervals[i][0] && newInterval[1] <= intervals[i][1]) {
-                endInterval = intervals[i][1];
-
-                if (Continue == true) {
-                    addArray.add(frontInterval);
-                    addArray.add(endInterval);
-
-                    arrayList2D.add(new ArrayList<>(List.copyOf(addArray)));
-                    Continue = false;
-                    continue;
-                } else {
-                    addArray.add(frontInterval);
-                    addArray.add(endInterval);
-
-                    arrayList2D.add(new ArrayList<>(List.copyOf(addArray)));
-                }
-            }
-
             // Scenario 4
             if ((newInterval[1] < intervals[i][0] && i == 0) || (newInterval[1] < intervals[i][0] && newInterval[0] > intervals[i-1][1])) {
                 addArray.add(newInterval[0]);
                 addArray.add(newInterval[1]);
                 arrayList2D.add(new ArrayList<>(List.copyOf(addArray)));
+                Finished = true;
+            } else if (newInterval[0] > intervals[i][1] && i == intervals.length - 1) {
+                arrayList2D.add(new ArrayList<>(List.of(intervals[i][0], intervals[i][1])));
+                addArray.add(newInterval[0]);
+                addArray.add(newInterval[1]);
+                arrayList2D.add(new ArrayList<>(List.copyOf(addArray)));
+                break;
+            }
+
+            // Scenario 1
+            if (newInterval[0] >= intervals[i][0] && newInterval[1] <= intervals[i][1]) {
+                return intervals;
+            }
+
+            // Scenario 2 and 3 
+            if (frontInterval < intervals[i][0] && Finished == false) {
+                Continue = true;
+            } else if (intervals[i][0] <= frontInterval && frontInterval <= intervals[i][1]) {
+                frontInterval = intervals[i][0];
+                Continue = true;
+            } 
+
+            if (newInterval[1] < intervals[i][0] && Finished == false) {
+                addArray.add(frontInterval);
+                addArray.add(endInterval);
+                arrayList2D.add(new ArrayList<>(List.copyOf(addArray)));
+                Continue = false;
+                Finished = true;
+            } else if (newInterval[1] >= intervals[i][0] && newInterval[1] <= intervals[i][1]) {
+                endInterval = intervals[i][1];
+                addArray.add(frontInterval);
+                addArray.add(endInterval);
+                arrayList2D.add(new ArrayList<>(List.copyOf(addArray)));
+                Continue = false;
+                Finished = true;
+                continue;
+            } else if (i == intervals.length - 1 && newInterval[1] > intervals[i][1] && Continue == true) {
+                addArray.add(frontInterval);
+                addArray.add(endInterval);
+                arrayList2D.add(new ArrayList<>(List.copyOf(addArray)));
+                break;
             }
 
             if (Continue) {
