@@ -86,3 +86,35 @@ public class insertIntervals {
         return result;
     }
 }
+
+// Improve version
+// if (intervals == null || intervals.length == 0) {
+//     return new int[][]{newInterval};
+// }
+
+// List<int[]> mergedIntervals = new ArrayList<>();
+// int index = 0;
+// int start = newInterval[0];
+// int end = newInterval[1];
+
+// // Add intervals before newInterval
+// while (index < intervals.length && intervals[index][1] < start) {
+//     mergedIntervals.add(intervals[index]);
+//     index++;
+// }
+
+// // Merge overlapping intervals
+// while (index < intervals.length && intervals[index][0] <= end) {
+//     start = Math.min(start, intervals[index][0]);
+//     end = Math.max(end, intervals[index][1]);
+//     index++;
+// }
+// mergedIntervals.add(new int[]{start, end});
+
+// // Add remaining intervals
+// while (index < intervals.length) {
+//     mergedIntervals.add(intervals[index]);
+//     index++;
+// }
+
+// return mergedIntervals.toArray(new int[mergedIntervals.size()][2]);
