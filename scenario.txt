@@ -1,21 +1,11 @@
 Notebook
 
-1. Within an interval, no change:
-- intervals = [[1,3],[6,9]], newInterval = [2,3]
-- Output: [[1,3],[6,9]]
-- condition interval front and end are entirely between an interval which result in no change
+1.interval fall between another interval
 
-2 overlay on 1 interval but not the other:
-- intervals = [[1,3],[6,9]], newInterval = [2,5]
-- Output: [[1,5],[6,9]]
-- condition, interval front fall between 1 interval but interval end doesnt fall between 1 or interval front doesnt fall between 1 interval but interval end does.
+2.interval front fall between another interval
 
-3. Overlay on interval, reduce length:
-- intervals = [[1,2],[3,5],[6,7],[8,10],[12,16]], newInterval = [4,8]
-- Output: [[1,2],[3,10],[12,16]]
-- condition interval front and end are between 2 interval which shorten that interval
+3.interval end fall between another interval
 
-4. Within non of the interval: create new interval:
-- intervals = [[1,3],[6,9]], newInterval = [4,5]
-- Output: [[1,3], [4,5], [6,9]]
-- interval front and end are outside of all interval which result in creation of new interval
+4.interval fall outside another interval
+
+5.interval doesnt fall in any interval
