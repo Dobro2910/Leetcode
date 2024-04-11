@@ -27,6 +27,12 @@ public class deepCopy {
                 nodeMap.put(current.random, new Node(current.random.val));
             }
 
+            // In the provided code, when the random pointer of a node in the original list
+            // is null,
+            // it's not explicitly added to the HashMap. Therefore, when current.random is
+            // null,
+            // calling nodeMap.get(current.random) will indeed return null.
+
             // Set next and random pointers for the copy
             currentCopy.next = nodeMap.get(current.next);
             currentCopy.random = nodeMap.get(current.random);
