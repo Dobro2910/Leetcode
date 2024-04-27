@@ -4,7 +4,7 @@ public:
     std::vector<double> returnVector;
     std::vector<int> count;
 
-    std::vector<double> averageOfLevels(TreeNode *root)
+    vector<double> averageOfLevels(TreeNode *root)
     {
         if (root == nullptr)
         {
