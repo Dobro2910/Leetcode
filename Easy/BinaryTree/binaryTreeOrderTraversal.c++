@@ -17,11 +17,6 @@ public:
 
         resultVector[level].push_back(root->val);
 
-        for (int i = 0; i < resultVector[level].size(); ++i)
-        {
-            cout << resultVector[level][i];
-        }
-
         levelOrder(root->left, ++level);
         levelOrder(root->right, level);
 
