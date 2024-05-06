@@ -1,24 +1,25 @@
 class Solution
 {
 public:
-    std::vector<int> sortedVector;
-    int kthSmallest(TreeNode *root, int k, int level = 0)
+    void inOrderTreeTraversal(TreeNode *root, int k, vector<int> &sortedVector)
     {
         if (root == nullptr)
         {
-            return -1;
+            return;
         }
 
-        int left;
-        int right;
-        left = kthSmallest(root->left, k, level + 1);
+        inOrderTreeTraversal(root->left, k, sortedVector);
         sortedVector.push_back(root->val);
-        right = kthSmallest(root->right, k, level + 1);
+        inOrderTreeTraversal(root->right, k, sortedVector);
 
-        if (level != 0)
-        {
-            return root->val;
-        }
+        return;
+    }
+
+    int kthSmallest(TreeNode *root, int k)
+    {
+        std::vector<int> sortedVector;
+
+        inOrderTreeTraversal(root, k, sortedVector);
 
         return sortedVector[k - 1];
     }
